@@ -1,0 +1,13 @@
+{
+ 
+  "files.exclude": {
+    "**/node_modules": true,
+    "public": true,
+    ".astro": true,
+    ".gitignore": true,
+    "*.json": true,
+    "src/content": true,
+
+  }
+
+}
