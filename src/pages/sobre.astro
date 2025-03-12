@@ -1,0 +1,89 @@
+---
+import Layout from "../layouts/BlogPost.astro";
+---
+
+<Layout
+  title="Sobre mim"
+  description="Lorem ipsum dolor sit amet"
+  heroImage={"src/pages/img/coffeecode.jpeg"}
+>
+  <p>
+    Olá! Meu nome é Thiago, tenho 25 anos e sou brasileiro. Atualmente, vivo em
+    Guarapuava - PR, onde estou concluindo meu curso de Ciência da Computação na
+    <a href="https://www3.unicentro.br/" class="special-link"
+      >Universidade Estadual do Centro-Oeste</a
+    >, iniciado em 2019 e com previsão de término para o final de 2025.
+  </p>
+  <p>
+    Sou apaixonado por tecnologia e programação, com muita criatividade para
+    solucionar meus problemas. No meu Trabalho de Conclusão de Curso (TCC),
+    desenvolvi um aplicativo mobile chamado <a
+      href="https://drive.google.com/file/d/16zs2gWHj0zAbEjOdJuDx1WWHDlLr-jqt/view?pli=1"
+      class="special-link">"Stylus: Uma loja virtual em Flutter"</a
+    >, uma experiência que me ensinou muito sobre desenvolvimento mobile e
+    trabalho prático. Domino linguagens como C e Java, que aprendi ao longo da
+    graduação, e JavaScript, com foco em React, a biblioteca que mais utilizei
+    na vida. Também tenho experiência com Python, <a
+      href="https://drive.google.com/drive/folders/1X4R6-ufzsoP8QdK58YdL32BERZX1o8cV?usp=sharing"
+      class="special-link"
+      >usado em projetos de Machine Learning e algoritmos matemáticos na
+      faculdade</a
+    >, além de já ter explorado PHP e o framework Laravel em projetos pessoais.
+  </p>
+
+  <p>
+    Agora, falando dos meus gostos, sou um entusiasta de café e leitura,
+    mergulhar em obras de autores como Kafka, Dickens, Dostoievski e Machado de
+    Assis, com uma paixão por absurdismo e realismo. Gosto de jogos,
+    principalmente RPGs, e passo boa parte do meu tempo com meus dois gatos:
+    Canjica e Mingau, ou saindo para passear e conhecer novos lugares com minha
+    namorada. Sou criativo, um pouco excêntrico e amo "viajar nas ideias", seja
+    programando, conversando sobre software e sistemas operacionais ou
+    imaginando novas possiblidades.
+  </p>
+
+  <p>
+    Meu objetivo é atuar em desenvolvimento de software, onde possa aplicar
+    minhas habilidades, aprender continuamente e contribuir para soluções que
+    façam a diferença. Se você busca alguém dedicado e apaixonado por
+    tecnologia, ficarei feliz em conversar mais!
+  </p>
+
+  <div class="mt-8 flex justify-center">
+    <a
+      href="mailto:thiagoigfraga@gmail.com"
+      class="!text-white focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 inline-flex items-center justify-center no-underline"
+      role="button"
+    >
+      Entrar em contato
+    </a>
+  </div>
+</Layout>
+
+<style>
+  .special-link {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+    color: #7e22ce;
+  }
+
+  .special-link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #9333ea; /* Cor roxa para combinar com seus botões */
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+  }
+
+  .special-link:hover {
+    font-weight: 700; /* Roxo mais escuro no hover */
+  }
+</style>
