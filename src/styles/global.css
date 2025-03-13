@@ -131,3 +131,12 @@ hr {
 	/* added line to stop words getting smushed together (as they go onto separate lines and some screen readers do not understand line feeds as a space */
 	white-space: nowrap;
 }
+
+/* Estilo para os ícones SVG com efeito de iluminação no hover */
+svg {
+	transition: all 0.3s ease;
+}
+
+svg:hover {
+	transform: scale(1.1);
+}
