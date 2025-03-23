@@ -62,7 +62,7 @@ b {
 	font-weight: 700;
 }
 a {
-	color: var(--accent);
+	color: var(--purple);
 }
 a:hover {
 	color: var(--accent);
@@ -139,4 +139,10 @@ svg {
 
 svg:hover {
 	transform: scale(1.1);
+}
+
+/* Estilo de Projetos*/
+
+#titulo-projetos{
+	margin-bottom: 1.5rem;
 }

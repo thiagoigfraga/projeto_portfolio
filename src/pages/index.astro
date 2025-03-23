@@ -6,6 +6,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 import { Image } from "astro:assets";
 import { getImage } from "astro:assets";
 import { inferRemoteSize } from "astro:assets";
+import Button from "../components/Button.astro";
 const processedImage = await getImage({
   src: "https://avatars.githubusercontent.com/u/49455222?v=4",
   inferSize: true,
@@ -43,20 +44,8 @@ const { width, height } = await inferRemoteSize(
             Cientista da computação<br />Engenheiro de software
           </p>
           <div class="flex space-x-4 mt-2 justify-center md:justify-start">
-            <a
-              href="/sobre"
-              class="!text-white focus:outline-none bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 inline-flex items-center justify-center no-underline"
-              role="button"
-            >
-              Sobre mim
-            </a>
-            <!-- <a
-              href="/projetos"
-              class="!text-white focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 inline-flex items-center justify-center"
-              role="button"
-            >
-              Projetos
-            </a> -->
+            <Button href="/sobre" nome="Sobre"/>
+            <Button href="/projetos" nome="Projetos"/>
           </div>
         </div>
       </div>
