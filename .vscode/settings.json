@@ -6,7 +6,6 @@
     ".astro": true,
     ".gitignore": true,
     "*.json": true,
-    "src/content": true,
 
   }
 

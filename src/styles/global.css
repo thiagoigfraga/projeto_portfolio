@@ -12,25 +12,56 @@
 	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
 	--box-shadow: 0 2px 6px rgba(var(--gray), 25%), 0 8px 24px
 		rgba(var(--gray), 33%), 0 16px 32px rgba(var(--gray), 33%);
+
+	/* Cores base */
+	--bg-color: white;
+	--text-color: rgb(var(--gray-dark));
 }
+
+/* Dark mode variables */
+html.dark {
+	--accent: #4d7fff;
+	--accent-dark: #2c5ce6;
+	--black: 255, 255, 255;
+	--purple: #8b5fbf;
+	--gray: 156, 163, 175;
+	--gray-light: 55, 65, 81;
+	--gray-dark: 209, 213, 219;
+	--gray-gradient: rgba(17, 24, 39, 0.8), rgba(31, 41, 55, 0.9);
+	--box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3), 0 8px 24px
+		rgba(0, 0, 0, 0.4), 0 16px 32px rgba(0, 0, 0, 0.5);
+
+	/* Cores dark mode */
+	--bg-color: #1a1a1a;
+	--text-color: #e5e7eb;
+}
+
+/* Dark mode styles */
+html.dark body {
+	background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+	color: var(--text-color);
+}
+
 body {
 	font-family: "IBM Plex Mono", monospace;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
+	background: var(--bg-color);
+	background-image: linear-gradient(var(--gray-gradient));
 	background-size: 100% 600px;
+	background-repeat: no-repeat;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
+	color: var(--text-color);
 	font-size: 20px;
 	line-height: 1.7;
 }
 main {
-	width: 720px;
-	max-width: calc(100% - 2em);
+	width: 100%;
+	max-width: 1200px;
 	margin: auto;
-	padding: 3em 1em;
+	padding: 2rem 1rem;
 }
 h1,
 h2,
@@ -42,6 +73,16 @@ h6 {
 	color: rgb(var(--black));
 	line-height: 1.2;
 }
+
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+	color: white;
+}
+
 h1 {
 	font-size: 3.052em;
 }
@@ -145,4 +186,104 @@ svg:hover {
 
 #titulo-projetos{
 	margin-bottom: 1.5rem;
+}
+
+/* Dark mode specific styles */
+html.dark code {
+	background-color: rgb(var(--gray-light));
+	color: rgb(var(--gray-dark));
+}
+
+html.dark pre {
+	background-color: rgb(var(--gray-light));
+}
+
+html.dark blockquote {
+	border-left-color: var(--accent);
+}
+
+html.dark hr {
+	border-top-color: rgb(var(--gray-light));
+}
+
+/* Smooth transitions for theme changes */
+* {
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Hero section improvements */
+.hero-section {
+	padding: 4rem 0;
+	text-align: center;
+	background: linear-gradient(135deg, var(--gray-gradient));
+	border-radius: 1rem;
+}
+
+html.dark .hero-section {
+	background: linear-gradient(135deg, rgba(17, 24, 39, 0.9), rgba(31, 41, 55, 0.8));
+}
+
+/* Enhanced button styles */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1.5rem;
+	border-radius: 0.5rem;
+	text-decoration: none;
+	font-weight: 600;
+	transition: all 0.3s ease;
+	border: 2px solid var(--purple);
+	background: var(--purple);
+	color: white;
+}
+
+.btn:hover {
+	background: var(--accent);
+	border-color: var(--accent);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outline {
+	background: transparent;
+	color: var(--purple);
+}
+
+.btn-outline:hover {
+	background: var(--purple);
+	color: white;
+}
+
+html.dark .btn {
+	border-color: var(--purple);
+	background: var(--purple);
+}
+
+html.dark .btn:hover {
+	background: var(--accent);
+	border-color: var(--accent);
+}
+
+html.dark .btn-outline {
+	color: var(--purple);
+}
+
+html.dark .btn-outline:hover {
+	background: var(--purple);
+	color: white;
+}
+
+/* Scroll animations */
+@media (prefers-reduced-motion: no-preference) {
+	.fade-in-up {
+		opacity: 0;
+		transform: translateY(30px);
+		transition: opacity 0.6s ease, transform 0.6s ease;
+	}
+
+	.fade-in-up.visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }

@@ -2,7 +2,7 @@
 import HeaderLink from "./HeaderLink.astro";
 ---
 
-<header>
+<header id="main-header">
   <nav>
     <div class="internal-links">
       <HeaderLink href="/">Home</HeaderLink>
@@ -10,20 +10,56 @@ import HeaderLink from "./HeaderLink.astro";
       <HeaderLink href="/projetos">Projetos</HeaderLink>
     </div>
     <div class="social-links">
+      <!-- Theme Toggle Button -->
+      <button
+        id="header-theme-toggle"
+        class="theme-toggle-btn"
+        aria-label="Alternar tema"
+      >
+        <svg
+          class="sun-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"
+          ></circle>
+          <path
+            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+            stroke="currentColor"
+            stroke-width="2"></path>
+        </svg>
+        <svg
+          class="moon-icon"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+            stroke="currentColor"
+            stroke-width="2"></path>
+        </svg>
+      </button>
+
       <a href="https://github.com/thiagoigfraga" target="_blank">
         <span class="sr-only">Visite o perfil do Github de Thiago</span>
-        <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32"
-          ><path
-            style="fill: var(--purple)"
+        <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">
+          <path
+            style="fill: var(--text-color)"
             d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
-          ></path></svg
-        >
+          ></path>
+        </svg>
       </a>
       <a href="https://www.linkedin.com/in/thiagoigfraga" target="_blank">
         <span class="sr-only">Visite o perfil do LinkedIn de Thiago</span>
         <svg viewBox="0 0 50 50" aria-hidden="true" width="34" height="34">
           <path
-            style="fill: var(--purple)"
+            style="fill: var(--text-color)"
             d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z"
           ></path>
         </svg>
@@ -34,9 +70,11 @@ import HeaderLink from "./HeaderLink.astro";
 <style>
   header {
     margin: 0;
-    padding: 0 1em;
-    background: white;
+    padding: 0 2rem;
+    background: var(--bg-color);
     box-shadow: 0 2px 8px rgba(var(--black), 5%);
+    z-index: 10;
+    position: relative;
   }
   h2 {
     margin: 0;
@@ -50,11 +88,18 @@ import HeaderLink from "./HeaderLink.astro";
   nav {
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .internal-links {
+    display: flex;
+    gap: 2rem;
   }
   nav a {
     padding: 1em 0.5em;
-    color: var(--black);
+    color: var(--text-color);
     border-bottom: 4px solid transparent;
     text-decoration: none;
   }
@@ -62,13 +107,73 @@ import HeaderLink from "./HeaderLink.astro";
     text-decoration: none;
     color: var(--purple);
   }
-  .social-links,
-  .social-links a {
+
+  .social-links {
     display: flex;
+    align-items: center;
+    gap: 1em;
   }
-  @media (max-width: 720px) {
-    .social-links {
-      display: none;
-    }
+
+  .social-links a svg path {
+    fill: var(--text-color);
+    transition: fill 0.3s ease;
+  }
+
+  .social-links a:hover svg path {
+    fill: var(--purple);
+  }
+
+  .theme-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+  }
+
+  .theme-toggle-btn:hover {
+    color: var(--purple);
+  }
+
+  .sun-icon,
+  .moon-icon {
+    transition:
+      transform 0.5s ease,
+      opacity 0.5s ease;
+  }
+
+  /* Hide moon icon by default */
+  .moon-icon {
+    display: none;
+  }
+
+  /* Show sun icon by default */
+  .sun-icon {
+    display: block;
+  }
+
+  /* In dark mode, hide sun and show moon */
+  :global(html.dark) .sun-icon {
+    display: none;
+  }
+
+  :global(html.dark) .moon-icon {
+    display: block;
   }
 </style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const themeToggle = document.getElementById("header-theme-toggle");
+
+    if (themeToggle) {
+      themeToggle.addEventListener("click", () => {
+        const isDark = document.documentElement.classList.toggle("dark");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      });
+    }
+  });
+</script>

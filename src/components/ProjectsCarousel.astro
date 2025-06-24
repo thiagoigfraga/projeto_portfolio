@@ -1,0 +1,460 @@
+---
+import { getCollection } from "astro:content";
+
+// Buscar projetos em destaque ordenados
+const projects = await getCollection("projects");
+const featuredProjects = projects
+  .filter(project => project.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<project-carousel class="projects-carousel">
+  <div class="carousel-container">
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carousel-track">
+        {featuredProjects.map((project, index) => (
+          <div class="project-card">
+            <div class="project-image">
+              <img src={project.data.image} alt={project.data.title} loading="lazy" />
+              <div class="project-overlay">
+                <div class="project-links">
+                  {project.data.demo && (
+                    <a href={project.data.demo} target="_blank" rel="noopener noreferrer" class="btn-demo">
+                      🔗 Demo
+                    </a>
+                  )}
+                  {project.data.repo && (
+                    <a href={project.data.repo} target="_blank" rel="noopener noreferrer" class="btn-repo">
+                      💻 Código
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">{project.data.title}</h3>
+              <p class="project-description">{project.data.description}</p>
+              <div class="project-stack">
+                {project.data.stack.split(', ').map(tech => (
+                  <span class="tech-tag">{tech}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn prev" id="prev-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <div class="carousel-dots" id="carousel-dots">
+        {featuredProjects.map((_, index) => (
+          <button class={`dot ${index === 0 ? 'active' : ''}`} data-index={index}></button>
+        ))}
+      </div>
+      <button class="carousel-btn next" id="next-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</project-carousel>
+
+<style>
+  .projects-carousel {
+    margin: 4rem 0;
+    padding: 2rem 0;
+  }
+
+  .carousel-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .carousel-title {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--purple), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 2rem;
+  }
+
+  .project-card {
+    width: 100%;
+    flex-shrink: 0;
+    background: #ffffff;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #e5e7eb;
+  }
+
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .project-image {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+    md:width: 40%;
+    md:height: auto;
+  }
+
+  .project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .project-card:hover .project-image img {
+    transform: scale(1.05);
+  }
+
+  .project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .project-card:hover .project-overlay {
+    opacity: 1;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn-demo,
+  .btn-repo {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+    color: white;
+  }
+
+  .btn-demo:hover,
+  .btn-repo:hover {
+    background: white;
+    color: var(--purple);
+    transform: translateY(-2px);
+  }
+
+  .project-content {
+    padding: 1.5rem;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    text-align: center; /* Garante que o texto dentro dos elementos filhos seja centralizado */
+  }
+
+  html.dark .project-content {
+    background-color: rgb(var(--gray-dark));
+  }
+
+  .project-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #1f2937;
+    text-align: center;
+  }
+
+  .project-description {
+    color: #374151;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+
+  .tech-tag {
+    background: linear-gradient(135deg, var(--purple), var(--accent));
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .carousel-btn {
+    background: var(--purple);
+    color: white;
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .carousel-btn:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .carousel-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .carousel-dots {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    border: none;
+    background: rgb(var(--gray-light));
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .dot.active {
+    background: var(--purple);
+    transform: scale(1.2);
+  }
+
+  .dot:hover {
+    background: var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .carousel-title {
+      font-size: 2rem;
+    }
+
+    .project-card {
+      min-width: 100%;
+      flex-direction: column;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .carousel-controls {
+      gap: 1rem;
+    }
+
+    .carousel-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  /* Dark mode styles */
+  html.dark .project-card {
+    background: #1f2937;
+    color: white;
+    border: 1px solid #374151;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  html.dark .project-title {
+    color: #e5e7eb;
+  }
+
+  html.dark .project-description {
+    color: #d1d5db;
+  }
+
+  html.dark .dot {
+    background: rgb(var(--gray));
+  }
+
+  html.dark .project-content {
+    background-color: #1f2937;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const track = document.getElementById('carousel-track');
+  const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+  const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+  const dotsContainer = document.getElementById('carousel-dots');
+  
+  if (!track) return;
+  
+  const slides = Array.from(track.children);
+  const totalSlides = slides.length;
+  let currentIndex = 0;
+  let autoPlayInterval: NodeJS.Timeout | null = null;
+
+  function updateCarousel() {
+    if (!track) return;
+    
+    const translateX = -currentIndex * 100;
+    track.style.transform = `translateX(${translateX}%)`;
+
+    // Update dots
+    if (dotsContainer) {
+      const dots = dotsContainer.querySelectorAll('.dot');
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    // Update button states
+    if (prevBtn) prevBtn.disabled = currentIndex === 0;
+    if (nextBtn) nextBtn.disabled = currentIndex === totalSlides - 1;
+  }
+
+  function prev() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateCarousel();
+    }
+  }
+
+  function next() {
+    if (currentIndex < totalSlides - 1) {
+      currentIndex++;
+      updateCarousel();
+    }
+  }
+
+  function goTo(index: number) {
+    currentIndex = index;
+    updateCarousel();
+  }
+
+  function startAutoPlay() {
+    if (totalSlides <= 1) return;
+    stopAutoPlay();
+    autoPlayInterval = setInterval(() => {
+      if (currentIndex >= totalSlides - 1) {
+        currentIndex = 0;
+      } else {
+        currentIndex++;
+      }
+      updateCarousel();
+    }, 5000);
+  }
+
+  function stopAutoPlay() {
+    if (autoPlayInterval) {
+      clearInterval(autoPlayInterval);
+      autoPlayInterval = null;
+    }
+  }
+
+  // Event listeners
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      stopAutoPlay();
+      prev();
+      startAutoPlay();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      stopAutoPlay();
+      next();
+      startAutoPlay();
+    });
+  }
+
+  if (dotsContainer) {
+    dotsContainer.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target && target.classList && target.classList.contains('dot')) {
+        const index = parseInt(target.dataset.index || '0');
+        if (!isNaN(index)) {
+          stopAutoPlay();
+          goTo(index);
+          startAutoPlay();
+        }
+      }
+    });
+  }
+
+  // Mouse events
+  track.addEventListener('mouseenter', stopAutoPlay);
+  track.addEventListener('mouseleave', startAutoPlay);
+
+  // Initialize
+  if (totalSlides <= 1) {
+    if (prevBtn) prevBtn.style.display = 'none';
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (dotsContainer) dotsContainer.style.display = 'none';
+  } else {
+    updateCarousel();
+    startAutoPlay();
+  }
+});
+</script>

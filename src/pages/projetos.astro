@@ -1,12 +1,114 @@
 ---
 import Button from "../components/Button.astro";
+import ProjectsCarousel from "../components/ProjectsCarousel.astro";
 import Layout from "../layouts/BlogPost.astro";
 ---
 
-<Layout
-  title="Projetos"
->
-  <h3 id="titulo-projetos">Novos projetos se encontram abaixo:</h3>
+<Layout title="Projetos">
+  <div class="projects-page">
+    <div class="projects-header">
+      <p>
+        Confira alguns dos projetos que desenvolvi, desde aplicações simples até
+        sistemas completos.
+      </p>
+    </div>
 
-  <Button href="https://subtle-bublanina-98bb75.netlify.app" nome="CatPicsGenerator" />
+    <!-- Projects Carousel -->
+    <ProjectsCarousel />
+
+    <div class="additional-projects">
+      <h3 id="titulo-projetos">Outros projetos interessantes:</h3>
+      <div class="project-links">
+        <Button
+          href="https://subtle-bublanina-98bb75.netlify.app"
+          nome="CatPicsGenerator"
+        />
+        <Button
+          href="https://app-catalogofilmes.web.app/"
+          nome="Catálogo de Filmes"
+        />
+        <Button
+          href="https://blog-integrador3.web.app/"
+          nome="Blog Integrador"
+        />
+        <Button
+          href="https://thiagoigfraga.github.io/desafiojsbateria/"
+          nome="Bateria Virtual"
+        />
+      </div>
+    </div>
+  </div>
 </Layout>
+
+<style>
+  .projects-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
+  .projects-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .projects-header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--purple), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .projects-header p {
+    font-size: 1.1rem;
+    color: rgb(var(--gray-dark));
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .additional-projects {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgb(var(--gray-light));
+  }
+
+  #titulo-projetos {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .project-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  /* Dark mode styles */
+  [data-theme="dark"] .projects-header p {
+    color: rgb(var(--gray-light));
+  }
+
+  [data-theme="dark"] .additional-projects {
+    border-top-color: rgb(var(--gray));
+  }
+
+  @media (max-width: 768px) {
+    .projects-page {
+      padding: 1rem;
+    }
+
+    .projects-header h1 {
+      font-size: 2rem;
+    }
+
+    .project-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
