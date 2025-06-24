@@ -315,6 +315,67 @@ const featuredProjects = projects
     }
   }
 
+  @media (max-width: 450px) {
+    .carousel-title {
+      font-size: 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .carousel-track {
+      gap: 1rem;
+    }
+
+    .project-card {
+      margin: 0 0.5rem;
+      min-width: calc(100% - 1rem);
+    }
+
+    .project-content {
+      padding: 1rem;
+    }
+
+    .project-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-description {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .project-tech {
+      gap: 0.375rem;
+    }
+
+    .tech-tag {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    .carousel-controls {
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .carousel-btn {
+      width: 2rem;
+      height: 2rem;
+      font-size: 0.875rem;
+    }
+
+    .dots-container {
+      gap: 0.375rem;
+      margin-top: 1rem;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+    }
+  }
+
   /* Dark mode styles */
   html.dark .project-card {
     background: #1f2937;
@@ -368,23 +429,29 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Update button states
-    if (prevBtn) prevBtn.disabled = currentIndex === 0;
-    if (nextBtn) nextBtn.disabled = currentIndex === totalSlides - 1;
+    // Buttons are always enabled for circular navigation
+    if (prevBtn) prevBtn.disabled = false;
+    if (nextBtn) nextBtn.disabled = false;
   }
 
   function prev() {
     if (currentIndex > 0) {
       currentIndex--;
-      updateCarousel();
+    } else {
+      // Go to last slide when at first
+      currentIndex = totalSlides - 1;
     }
+    updateCarousel();
   }
 
   function next() {
     if (currentIndex < totalSlides - 1) {
       currentIndex++;
-      updateCarousel();
+    } else {
+      // Go to first slide when at last
+      currentIndex = 0;
     }
+    updateCarousel();
   }
 
   function goTo(index: number) {
